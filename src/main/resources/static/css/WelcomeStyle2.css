@@ -1,0 +1,501 @@
+html{
+    scroll-behavior: smooth;
+
+}
+body{
+    background: var(--clr-gray100);
+    font-family: Segoe UI, Helvetica, calibri, serif;
+
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: 0;
+}
+
+input,
+textarea,
+button,
+select, img, span,
+a {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    outline: 0;
+}
+
+/*Fonts from external source*/
+@font-face {
+    src: url(C:\Users\Home\AppData\Local\Temp\atom-118019-14536-1ea9572.rtm9ozuxr\league-spartan.zip\LeagueSpartan-Bold.otf);
+    font-family: League Spartan;
+}
+/*Fonts from external source*/
+
+
+
+/*Navigation Bar*/
+.logo {
+    position: absolute;
+     margin-top: 15px;
+    font-size: 16px;
+    margin-left: 13px;
+}
+
+.logo h1 {
+    font-family: Segoe UI, Helvetica, calibri, serif;
+    margin-top: 4px;
+}
+
+#menu {
+    position: absolute;
+    right: 20px;
+    top: 17px;
+    cursor: pointer;
+    display: none;
+}
+
+#close {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+nav ul {
+    display: block;
+    float: right;
+    overflow: hidden;
+    margin: 7px 0;
+    margin-right: 10px;
+}
+
+nav ul li {
+    list-style-type: none;
+    float: left;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    font-size: 17px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+@media screen and (max-width: 617px) {
+    .logo {
+        margin-top: 7px;
+        position: relative;
+        overflow: hidden;
+        display: block;
+        font-size: 14px;
+    }
+    .logo h1 {
+        position: relative;
+        margin-bottom: 10px;
+    }
+    nav {
+        width: 100vw;
+        height: 100vh;
+        display: none;
+    }
+    nav ul {
+        padding-top: 20px;
+        display: block;
+        width: 100%;
+        margin: auto;
+    }
+    .nav-expanded {
+        display: block;
+    }
+    nav ul li {
+        float: none;
+        border-bottom: 2px solid #D8D8D8;
+    }
+    nav ul li:last-child {
+        border-bottom: none;
+    }
+    #menu {
+        display: block;
+    }
+}
+/*Navigation Bar*/
+
+
+/*animated text*/
+.typing.animate {
+    width: 70px;
+    border-right: 0.1em solid black;
+    font-family: monospace;
+    font-size: 1.5em;
+    animation: type 2.5s steps(20), writer 1s infinite alternate, delete 0.5s steps(5) 2.5s, type2 1s steps(4) 3s forwards, type3 3s steps(22, end) 6s forwards;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.typing.animate::before {
+    content: "Hello ,its CleverVision";
+    animation: type2 1s steps(4) 3s forwards, type3 3s steps(22, end) 6s forwards;
+}
+
+@keyframes type {
+    from {
+        width: 0;
+    }
+    to {
+        width: 21ch;
+    }
+}
+
+@keyframes type2 {
+    from {
+        width: 16ch;
+        content: "Hello ,its CleverVision  "
+    }
+    to {
+        width: 30ch;
+        content: "Hello ,its CleverVision"
+    }
+}
+
+@keyframes type3 {
+    from {
+        width: 30ch;
+        content: "Hello its CleverVision ! "
+    }
+    to {
+        width: 75ch;
+        content: " Hello its CleverVision ! "
+    }
+}
+
+@keyframes writer {
+    50% {
+        border-color: transparent;
+    }
+}
+
+@keyframes delete {
+    from {
+        width: 21ch;
+    }
+    to {
+        width: 16ch;
+    }
+}
+
+/*Hero Image*/
+header {
+    width: 100vw;
+    height: 95vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('https://cdn.discordapp.com/attachments/1041772686206050324/1095056642955018290/istockphoto-1285947568-1024x1024-transformed_auto_x2.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-text {
+    width: 500px;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-family: League Spartan, sans-serif;
+    font-weight: 500;
+    font-size: 45px;
+    color: white;
+}
+
+#photography {
+    font-size: 60px;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    margin-bottom: 20px;
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    color: white;
+    font-size: 18px;
+}
+
+header button {
+    border: 2px solid white;
+    color: white;
+    font-family: 'Roboto', Segoe UI, calibri, Helvetica, serif;
+    padding: 10px;
+    font-size: 18px;
+    width: 160px;
+    border-radius: 500px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+header button:hover, button:active {
+    background-color: white;
+    color: black;
+}
+
+@media screen and (max-width: 676px) {
+    .header-text {
+        width: 95%;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 601px) {
+    #photography {
+        font-size: 45px;
+    }
+    header h1 {
+        font-size: 30px;
+    }
+    header p {
+        font-size: 15px;
+        width: 85%;
+        display: block;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+    header button {
+        font-size: 16px;
+        width: 140px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    #photography {
+        font-size: 35px;
+    }
+    header h1 {
+        font-size: 28px;
+    }
+}
+.about{
+    margin-right: 100px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+}
+.title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-family: Segoe UI, Helvetica, calibri, serif;
+}
+/*Hero Image*/
+:root {
+    --clr-gray100: #f2f5f6;
+    --clr-gray200: #d7dfe2;
+    --clr-gray300: #a2a9ab;
+    --clr-gray400: #616b74;
+    --clr-gray500: #414b56;
+    --clr-primary: #1de9b6;
+    --radius: 0.5rem;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+.features {
+    display: flex;
+    gap: 0.5rem;
+    font-family: Segoe UI, Helvetica, calibri, serif;
+}
+.features__item {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+    padding: 0.5rem;
+
+}
+.features__icon {
+    width: 2rem;
+    position: relative;
+    fill: var(--clr-gray500);
+}
+.features__icon::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+}
+.features__title::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    margin-bottom: 10px;
+}
+
+.site-footer
+{
+    background-color:#26272b;
+    padding:45px 0 20px;
+    font-size:15px;
+    line-height:24px;
+    color:#737373;
+}
+.site-footer hr
+{
+    border-top-color:#bbb;
+    opacity:0.5
+}
+.site-footer hr.small
+{
+    margin:20px 0
+}
+.site-footer h6
+{
+    color:#fff;
+    font-size:16px;
+    text-transform:uppercase;
+    margin-top:5px;
+    letter-spacing:2px
+}
+.site-footer a
+{
+    color:#737373;
+}
+.site-footer a:hover
+{
+    color:#3366cc;
+    text-decoration:none;
+}
+.footer-links
+{
+    padding-left:0;
+    list-style:none
+}
+.footer-links li
+{
+    display:block
+}
+.footer-links a
+{
+    color:#737373
+}
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover
+{
+    color:#3366cc;
+    text-decoration:none;
+}
+.footer-links.inline li
+{
+    display:inline-block
+}
+.site-footer .social-icons
+{
+    text-align:right
+}
+.site-footer .social-icons a
+{
+    width:40px;
+    height:40px;
+    line-height:40px;
+    margin-left:6px;
+    margin-right:0;
+    border-radius:100%;
+    background-color:#33353d
+}
+.copyright-text
+{
+    margin:0
+}
+@media (max-width:991px)
+{
+    .site-footer [class^=col-]
+    {
+        margin-bottom:30px
+    }
+}
+@media (max-width:767px)
+{
+    .site-footer
+    {
+        padding-bottom:0
+    }
+    .site-footer .copyright-text,.site-footer .social-icons
+    {
+        text-align:center
+    }
+}
+.social-icons
+{
+    padding-left:0;
+    margin-bottom:0;
+    list-style:none
+}
+.social-icons li
+{
+    display:inline-block;
+    margin-bottom:4px
+}
+.social-icons li.title
+{
+    margin-right:15px;
+    text-transform:uppercase;
+    color:#96a2b2;
+    font-weight:700;
+    font-size:13px
+}
+.social-icons a{
+    background-color:#eceeef;
+    color:#818a91;
+    font-size:16px;
+    display:inline-block;
+    line-height:44px;
+    width:44px;
+    height:44px;
+    text-align:center;
+    margin-right:8px;
+    border-radius:100%;
+    -webkit-transition:all .2s linear;
+    -o-transition:all .2s linear;
+    transition:all .2s linear
+}
+.social-icons a:active,.social-icons a:focus,.social-icons a:hover
+{
+    color:#fff;
+    background-color:#29aafe
+}
+.social-icons.size-sm a
+{
+    line-height:34px;
+    height:34px;
+    width:34px;
+    font-size:14px
+}
+.social-icons a.facebook:hover
+{
+    background-color:#3b5998
+}
+.social-icons a.twitter:hover
+{
+    background-color:#00aced
+}
+.social-icons a.linkedin:hover
+{
+    background-color:#007bb6
+}
+.social-icons a.dribbble:hover
+{
+    background-color:#ea4c89
+}
+@media (max-width:767px)
+{
+    .social-icons li.title
+    {
+        display:block;
+        margin-right:0;
+        font-weight:600
+    }
+}

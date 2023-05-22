@@ -1,0 +1,71 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base2}">
+<head>
+    <link rel="stylesheet" href="css/TravelDashboard.css">
+</head>
+
+<section id="wrapper" layout:fragment="content">
+
+    <nav class="navbar navbar-expand-md">
+        <div class="container-fluid mx-2">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CleverVision <span class="main-color">Admin</span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="toggle-navbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"> <a class="nav-link" href="/main"> <i class="bi bi-house-door-fill"></i> HOME </a> </li>
+                    <li class="nav-item" th:if="${user.getRole()==3}"> <a class="nav-link" href="/dashboard"><i class="bi bi-shield-fill"></i> DASHBOARD</a> </li>
+                    <li  class="nav-item" th:if="${user.getRole()==2}"> <a class="nav-link" href="/driverDashboard"><i class="bi bi-shield-fill"></i> DRIVER DASHBOARD</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/editProfile" th:text="${user.getLogin()}"><i class="bi bi-person-fill"></i></a> </li>
+                    <li class="nav-item"> <a  class="nav-link"href="/logout"><i class="bi bi-box-arrow-right"></i> LOGOUT</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="p-4">
+        <div class="welcome">
+            <div class="content rounded-3 p-3">
+                <h1 class="fs-3">Completed travels </h1>
+            </div>
+        </div>
+        <div class="">
+            <div class="table-wrapper">
+                <div class="table-title" style="background-color: #00aced">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Completed <b>Travels Backup</b></h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Depart Time</th>
+                        <th>Arrival Time</th>
+                        <th>Driver ID</th>
+                        <th>Bus ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:if="${VoyageList.isEmpty()}" colspan="5"> No Travels Completed Now</td>
+                    </tr>
+                    <tr  th:each="voy:${VoyageList}">
+                        <td th:text="${voy.getDestination() == 1?'Bizerte - IsetB':'IsetB - Bizerte'}" ></td>
+                        <td th:text="${voy.getHeureDepart()}"></td>
+                        <td th:text="${voy.getHeureArrive()}"></td>
+                        <td th:text="${voy.getDriverId()}"></td>
+                        <td th:text="${voy.getBusMat()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

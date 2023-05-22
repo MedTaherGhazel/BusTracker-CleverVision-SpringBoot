@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<body>
+<head>
+    <link rel="stylesheet" href="css/main.css?version=41">
+    <title>BusTrucker</title>
+</head>
+<section layout:fragment="content">
+    <!--Navigation Bar-->
+    <header>
+    </header>
+<div class="card-body ms-sm-3">
+    <div class="d-flex flex-row">
+
+        <div class="card" style="width: 250rem;" >
+            <div id="report">
+                <a href="#reportModal" data-toggle="modal" >  <i class="bi bi-flag-fill bigger-icon"></i> </a>
+            </div>
+            <canvas id="canvas" width="1857px" height="1080px"></canvas>
+
+        </div>
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center mb-5">
+                        <h2 class="heading-section"><Strong> Travels List </Strong></h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-wrap">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Depart time</th>
+                                    <th scope="col">Arrival time</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${VoyageList.isEmpty()}">
+                                    <td colspan="4">
+                                        <div class="alert alert-dark"> 0 Travels planned for now. Please refresh page to get updated informations</div>
+                                    </td>
+                                </tr>
+                                <tr style="height:50%" th:each="voy:${VoyageList}" th:classappend="${voy.getEnRoute() == 1 } ? 'table-success' : 'table-active'">
+                                    <td th:text="${voy.getDestination() == 1 } ? 'Bizerte - IsetB ' : 'IsetB - Bizerte'">
+                                    <td th:text="${voy.getHeureDepart()}"></td>
+                                    <td th:text="${voy.getHeureArrive()}"></td>
+                                    <td th:text="${voy.getEnRoute() == 1 } ? 'On the way ' : 'At Station 1'">
+
+                                    <td>
+                                        <button th:classappend="${voy.getEnRoute() == 1 } ? ' btn btn-success' : ' btn btn-active'" th:text="${voy.getEnRoute() == 1 } ? ' On the way ' : ' On Station'"></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Send Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" style="margin-left: 20px;">
+                        <ul class="feedback">
+                            <li class="angry">
+                                <div>
+                                    <svg class="eye left">
+                                        <use xlink:href="#eye">
+                                    </svg>
+                                    <svg class="eye right">
+                                        <use xlink:href="#eye">
+                                    </svg>
+                                    <svg class="mouth">
+                                        <use xlink:href="#mouth">
+                                    </svg>
+                                </div>
+                            </li>
+                            <li class="sad">
+                                <div>
+                                    <svg class="eye left">
+                                        <use xlink:href="#eye">
+                                    </svg>
+                                    <svg class="eye right">
+                                        <use xlink:href="#eye">
+                                    </svg>
+                                    <svg class="mouth">
+                                        <use xlink:href="#mouth">
+                                    </svg>
+                                </div>
+                            </li>
+                            <li class="ok">
+                                <div></div>
+                            </li>
+                            <li class="good active">
+                                <div>
+                                    <svg class="eye left">
+                                        <use xlink:href="#eye">
+                                    </svg>
+                                    <svg class="eye right">
+                                        <use xlink:href="#eye">
+                                    </svg>
+                                    <svg class="mouth">
+                                        <use xlink:href="#mouth">
+                                    </svg>
+                                </div>
+                            </li>
+                            <li class="happy">
+                                <div>
+                                    <svg class="eye left">
+                                        <use xlink:href="#eye">
+                                    </svg>
+                                    <svg class="eye right">
+                                        <use xlink:href="#eye">
+                                    </svg>
+                                </div>
+                            </li>
+                        </ul>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                            <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 4" id="eye">
+                                <path d="M1,1 C1.83333333,2.16666667 2.66666667,2.75 3.5,2.75 C4.33333333,2.75 5.16666667,2.16666667 6,1"></path>
+                            </symbol>
+                            <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 7" id="mouth">
+                                <path d="M1,5.5 C3.66666667,2.5 6.33333333,1 9,1 C11.6666667,1 14.3333333,2.5 17,5.5"></path>
+                            </symbol>
+                        </svg>
+                    </div>
+                    <form method="post" action="/report">
+                        <div class="form-group">
+                            <label  class="col-form-label">Type</label>
+                            <select class="form-select" name="type" id="reasonSelect">
+                                <option selected th:value="1">Bug</option>
+                                <option th:value="2">Privacy Violation</option>
+                                <option th:value="3">Spam or Abuse</option>
+                                <option th:value="4">Incorrect Bus Position Information</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div id="additionalInput" style="display: none;">
+                                <label>Select Completed Travel </label>
+                                <select class="form-select" name="voy">
+                                    <option selected value="0"></option>
+                                    <option th:each="voy : ${VoyageList}" th:value="${voy.getId()}" th:text="${voy.getHeureDepart()}">Voyage: </option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" name="user" th:value="${user.getLogin()}">
+                        <div class="form-group">
+                            <label for="" class="form-label">Description</label>
+                            <textarea class="form-control" name="desc" id="" rows="4"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:inline="javascript">
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+
+        // Load the map image and bus image
+        const mapImage = new Image();
+        mapImage.src = "img/map.png";
+
+        const busImage = new Image();
+        busImage.src = "img/bus.png";
+
+        // Define the coordinates of the line that the bus will follow
+        const lineCoordinates = [
+            { x: 517, y: 136 },
+            { x: 532, y: 124 },
+            { x: 545, y: 115 },
+            { x: 554, y: 109 },
+            { x: 562, y: 104 },
+            { x: 575, y: 91 },
+            { x: 587, y: 81 },
+            { x: 599, y: 73 },
+            { x: 611, y: 77 },
+            { x: 624, y: 82 },
+            { x: 635, y: 86 },
+            { x: 645, y: 100 },
+            { x: 651, y: 111 },
+            { x: 657, y: 124 },
+            { x: 663, y: 135 },
+            { x: 675, y: 149 },
+            { x: 684, y: 162 },
+            { x: 694, y: 173 },
+            { x: 696, y: 180 },
+            { x: 697, y: 187 },
+            { x: 697, y: 195 },
+            { x: 697, y: 202 },
+            { x: 697, y: 207 },
+            { x: 687, y: 211 },
+            { x: 678, y: 216 },
+            { x: 667, y: 223 },
+            { x: 657, y: 231 },
+            { x: 642, y: 238 },
+            { x: 627, y: 243 },
+            { x: 619, y: 255 },
+            { x: 611, y: 264 },
+            { x: 602, y: 278 },
+            { x: 593, y: 291 },
+            { x: 586, y: 308 },
+            { x: 580, y: 325 },
+            { x: 575, y: 344 },
+            { x: 570, y: 360 },
+            { x: 565, y: 373 },
+            { x: 563, y: 377 },
+            { x: 562, y: 394 },
+            { x: 560, y: 410 },
+            { x: 556, y: 427 },
+            { x: 551, y: 441 },
+            { x: 547, y: 447 },
+            { x: 531, y: 472 },
+            { x: 514, y: 496 },
+            { x: 493, y: 521 },
+            { x: 471, y: 544 },
+            { x: 468, y: 561 },
+            { x: 465, y: 579 },
+            { x: 458, y: 608 },
+            { x: 453, y: 639 },
+            { x: 436, y: 652 },
+            { x: 420, y: 660 },
+            { x: 404, y: 674 },
+            { x: 386, y: 694 },
+            { x: 378, y: 709 },
+            { x: 371, y: 724 },
+            { x: 368, y: 722},
+            { x: 370, y: 746 },
+            { x: 374, y: 770 },
+            { x: 374, y: 788 },
+            { x: 374, y: 806 },
+            { x: 374, y: 818 },
+            { x: 376, y: 829 },
+            { x: 380, y: 831 },
+            { x: 383, y: 847 },
+            { x: 386, y: 864 },
+            { x: 384, y: 881 },
+            { x: 386, y: 898 },
+            { x: 388, y: 925 },
+            { x: 392, y: 952 },
+            { x: 397, y: 967 },
+            { x: 401, y: 983 },
+            { x: 413, y: 995 },
+            { x: 429, y: 1007 },
+            { x: 439, y: 1014 },
+            { x: 450, y: 1022 },
+            { x: 461, y: 1030 },
+            { x: 471, y: 1038 },
+            { x: 484, y: 1045 },
+            { x: 496, y: 1053 },
+            { x: 505, y: 1053 },
+            { x: 514, y: 1053 },
+            { x: 539, y: 1055 },
+            { x: 566, y: 1056 },
+            { x: 581, y: 1055 },
+            { x: 596, y: 1053 },
+            { x: 612, y: 1051 },
+            { x: 627, y: 1050 },
+            { x: 644, y: 1045 },
+            { x: 660, y: 1041 },
+            { x: 674, y: 1034 },
+            { x: 688, y: 1028 },
+            { x: 703, y: 1021 },
+            { x: 718, y: 1013 },
+            { x: 734, y: 1009 },
+            { x: 754, y: 1004 },
+            { x: 770, y: 998 },
+            { x: 785, y: 992 },
+            { x: 800, y: 987 },
+            { x: 815, y: 983 }
+        ];
+        // Define the initial position of the bus on the line
+        let busPosition = 0;
+
+        // Draw the map image and the bus image on the canvas
+        function drawMap() {
+            // Draw the map image
+            context.drawImage(mapImage, 0, 0, canvas.width, canvas.height);
+        }
+
+        // Draw the map image and the bus image on the canvas
+        function drawBus() {
+            context.drawImage(
+                busImage,
+                lineCoordinates[busPosition].x,
+                lineCoordinates[busPosition].y,
+                busImage.width,
+                busImage.height
+            );
+        }
+
+        // display map and bus when refresh
+        window.onload = function() {
+            drawMap();
+            drawBus();
+            const animationInterval = 50; // milliseconds
+            var refreshPosition = setInterval(() => {
+                if(RealBusPosition!=null){ busPosition= RealBusPosition;}
+                else{
+                    busPosition = 0;
+                }
+                // Redraw the canvas
+                drawMap();
+                drawBus();
+                if (busPosition > 100) {
+                    clearInterval(refreshPosition);
+                }
+            }, animationInterval);
+        };
+        function StartBus() {
+
+            // Animate the bus image by updating its position on the line at a regular interval
+            const animationInterval = 50; // milliseconds
+            var refreshPosition = setInterval(() => {
+                // Update the bus position
+                busPosition = (busPosition + 1) % lineCoordinates.length;
+                console.log(busPosition);
+                // Redraw the canvas
+                drawMap();
+                drawBus();
+                if (busPosition > 100) {
+                    clearInterval(refreshPosition);
+                }
+            }, animationInterval);
+        }
+
+        function updateData() {
+            // Make an AJAX request to your Spring Boot server
+            $.ajax({
+                url: "/main/bus",
+                type: "GET",
+                success: function(response) {
+                    // Convert the integer response to a string
+                    var responseString = response.toString();
+                    if(responseString!=null) {
+                        // Update the content of the div with the fetched data
+                        RealBusPosition = Number(responseString);
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+        // Call the updateData function every second
+        setInterval(updateData, 1000);
+
+    </script>
+    <script>
+        document.querySelectorAll('.feedback li').forEach(entry => entry.addEventListener('click', e => {
+            if(!entry.classList.contains('active')) {
+                document.querySelector('.feedback li.active').classList.remove('active');
+                entry.classList.add('active');
+            }
+            e.preventDefault();
+        }));
+
+        const reasonSelect = document.getElementById('reasonSelect');
+        const additionalInput = document.getElementById('additionalInput');
+
+        reasonSelect.addEventListener('change', function() {
+            if (reasonSelect.value === '4') {
+                additionalInput.style.display = 'block';
+            } else {
+                additionalInput.style.display = 'none';
+            }
+        });
+
+    </script>
+</section>
+</body>
+</html>
